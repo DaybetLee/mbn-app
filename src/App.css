@@ -1,15 +1,60 @@
-.App {
-  text-align: center;
+main {
+  padding-top: 50px;
 }
 
-.cardButton {
+#cardButton {
   float: right;
 }
 
-.innerCard {
+#innerCard {
+  padding: 10px;
+}
+.card-body.overflow-auto {
   height: 270px;
 }
 
+#errorContainer {
+  text-align: center;
+}
+
+#errorContainer {
+  padding-top: 150px;
+}
+
+#error404 {
+  padding-top: 50px;
+}
 .fa-exclamation-triangle {
   color: red;
+}
+
+.col.card_right {
+  float: right;
+}
+
+.col.card_left {
+  float: left;
+}
+
+.btn-danger {
+  float: right;
+}
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.card-body.overflow-auto {
+  height: 270px;
+}
+
+.fa-edit {
+  cursor: pointer;
+}
+
+.form-group.input-group {
+  width: 250px;
 }

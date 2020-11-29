@@ -1,6 +1,13 @@
 import React from "react";
 
-const Modal = ({ header, body, priBtnTitle, secBtnTitle, priBtnEvnt, id }) => {
+const ModalForm = ({
+  header,
+  body,
+  priBtnTitle,
+  secBtnTitle,
+  priBtnEvnt,
+  id,
+}) => {
   return (
     <div
       className="modal fade"
@@ -29,9 +36,10 @@ const Modal = ({ header, body, priBtnTitle, secBtnTitle, priBtnEvnt, id }) => {
             </button>
             <button
               onClick={() => priBtnEvnt()}
-              type="button"
+              type="submit"
               className="btn btn-primary"
-              data-dismiss="modal"
+              data-toggle="modal"
+              data-target={"#" + id}
             >
               {priBtnTitle}
             </button>
@@ -42,4 +50,4 @@ const Modal = ({ header, body, priBtnTitle, secBtnTitle, priBtnEvnt, id }) => {
   );
 };
 
-export default Modal;
+export default ModalForm;

@@ -1,13 +1,8 @@
 import React from "react";
-import Modal from "../../common/modal";
-import ExtContentModalBody from "./extContentModalBody";
+import ExternalModalForm from "./externalModalForm";
 
-const ExternalContent = ({ user, onEmailToggle }) => {
+const ExternalContent = ({ user, onEmailToggle, onSendLink }) => {
   const modalID = "editUserModal";
-
-  const handleSubmit = (e) => {
-    console.log(e);
-  };
 
   return (
     <div className="collapse" id="navbarToggleExternalContent">
@@ -22,16 +17,19 @@ const ExternalContent = ({ user, onEmailToggle }) => {
             onClick={() => onEmailToggle()}
             data-toggle="modal"
             data-target={"#" + modalID}
-            className="far fa-edit text-primary"
+            className="fas fa-user-edit text-primary"
           />
           <span className="text-white"> {user.email} </span>
           {user.verified ? null : (
-            <button className="btn badge badge-pill badge-warning">
+            <button
+              onClick={() => onSendLink()}
+              className="btn badge badge-pill badge-warning"
+            >
               Click To Verify
             </button>
           )}
         </div>
-        <Modal
+        <ExternalModalForm
           header={
             <React.Fragment>
               <i className="fas fa-user" />
@@ -39,15 +37,9 @@ const ExternalContent = ({ user, onEmailToggle }) => {
             </React.Fragment>
           }
           id={modalID}
-          body={
-            <ExtContentModalBody
-              user={user}
-              onSubmit={(e) => handleSubmit(e)}
-            />
-          }
           secBtnTitle={"Close"}
           priBtnTitle={"Commit"}
-          priBtnEvnt={() => console.log("button")}
+          priBtnEvnt={() => null}
         />
       </div>
     </div>

@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../common/navbar";
 import ExternalContent from "../dashboard/externalContent/externalContent";
 
-const DashboardNavbar = ({ user, emailEdit, onEmailToggle }) => {
+const DashboardNavbar = ({ user, emailEdit, onEmailToggle, onSendLink }) => {
   const navbarItems = {
     content: (
       <button
@@ -27,6 +27,7 @@ const DashboardNavbar = ({ user, emailEdit, onEmailToggle }) => {
         user={user}
         onEmailToggle={() => onEmailToggle()}
         emailEdit={emailEdit}
+        onSendLink={() => onSendLink()}
       />
     </React.Fragment>
   );

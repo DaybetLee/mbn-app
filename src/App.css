@@ -21,9 +21,10 @@ main {
   padding-top: 150px;
 }
 
-#error404 {
+.errorCode {
   padding-top: 50px;
 }
+
 .fa-exclamation-triangle {
   color: red;
 }
@@ -51,10 +52,44 @@ main {
   height: 270px;
 }
 
-.fa-edit {
+.fa-user-edit {
   cursor: pointer;
 }
 
 .form-group.input-group {
   width: 250px;
+}
+
+#banner {
+  width: 100%;
+}
+
+.fa-ban {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+.fa-walking {
+  position: relative;
+  animation-name: walk;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes walk {
+  0% {
+    left: -200px;
+    top: 0px;
+    opacity: 100;
+  }
+  100% {
+    left: 200px;
+    top: 0px;
+    opacity: 0;
+  }
 }

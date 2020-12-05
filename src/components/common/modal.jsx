@@ -29,7 +29,7 @@ const Modal = ({ header, body, priBtnTitle, secBtnTitle, priBtnEvnt, id }) => {
             </button>
             <button
               onClick={() => priBtnEvnt()}
-              type="button"
+              type="submit"
               className="btn btn-primary"
               data-dismiss="modal"
             >

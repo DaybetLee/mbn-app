@@ -1,8 +1,44 @@
 import React, { Component } from "react";
 import Navbar from "../common/navbar";
+import { getUser } from "./../../services/userService";
+import { getCurrentUserToken } from "./../../services/authService";
+import { toast } from "react-toastify";
+import { resendLink } from "../../services/verifyService";
 
 class Verification extends Component {
+  state = { user: {} };
+
+  async componentDidMount() {
+    const token = getCurrentUserToken();
+    try {
+      const { data: user } = await getUser(token._id);
+      this.setState({ user });
+    } catch (ex) {
+      if (ex.response && ex.response.status === 401) {
+        window.location = "/unauthorized";
+      }
+    }
+  }
+
+  handleSendLink = async () => {
+    await resendLink();
+    toast(
+      <React.Fragment>
+        <i className="fas fa-check-circle text-success" />
+        <span className="text-dark">
+          {" "}
+          A verification link has been sent to your account.
+        </span>
+      </React.Fragment>,
+      {
+        toastId: "successEmailSent",
+      }
+    );
+  };
+
   render() {
+    const { user } = this.state;
+
     return (
       <React.Fragment>
         <Navbar navbarItems={this.navbarItems} />
@@ -10,16 +46,19 @@ class Verification extends Component {
           <h1>Verify Your Email</h1>
           <hr />
           <p>
-            We have sent and email to <b>dummy_Email</b>
+            We have sent and email to <b>{user.email}</b>
           </p>
           <p>
             You need to verify your email to continue. If you have not received
             the verification email, please check your "Spam" or "Bulk Email"
-            folder. You can also click the resend button below to have another
-            email send to you.
+            folder. You can also click the link below to have another email send
+            to you.
           </p>
 
-          <button className="btn btn-link p-0">
+          <button
+            onClick={() => this.handleSendLink()}
+            className="btn btn-link p-0"
+          >
             Resend verification Email
           </button>
         </main>

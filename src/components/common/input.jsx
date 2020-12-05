@@ -1,20 +1,30 @@
 import React from "react";
 
-const Input = ({ name, onChange, value, label, error, type }) => {
+const Input = ({
+  name,
+  onChange,
+  value,
+  label,
+  error,
+  type = "text",
+  className = "form-group",
+  placeholder = "",
+}) => {
   return (
-    <React.Fragment>
+    <div className={className}>
       <label htmlFor={name}>{label}</label>
       <input
-        type={type}
-        className="form-control"
-        name={name}
-        id={name}
         value={value}
         onChange={(e) => onChange(e)}
-        placeholder={value}
+        name={name}
+        id={name}
+        type={type}
+        autoComplete="off"
+        className="form-control"
+        placeholder={placeholder}
       />
-      <div className="small text-danger">some words</div>
-    </React.Fragment>
+      {error && <small className="form-text text-danger">{error}</small>}
+    </div>
   );
 };
 

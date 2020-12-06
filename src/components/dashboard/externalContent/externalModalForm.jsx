@@ -164,7 +164,13 @@ class ExternalModalForm extends Form {
                 >
                   Delete Account
                 </button>
-                <button type="button">{secBtnTitle}</button>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  {secBtnTitle}
+                </button>
                 <button
                   onClick={() => priBtnEvnt()}
                   type="submit"
@@ -172,6 +178,27 @@ class ExternalModalForm extends Form {
                 >
                   {priBtnTitle}
                 </button>
+                <Modal
+                  header={
+                    <React.Fragment>
+                      <i className="fa fa-exclamation-triangle" />
+                      {" Warning"}
+                    </React.Fragment>
+                  }
+                  id={modalID}
+                  body={
+                    <div>
+                      <p>
+                        You are about to delete a device.
+                        <br />
+                        Are you sure you want to continue?
+                      </p>
+                    </div>
+                  }
+                  secBtnTitle={"No"}
+                  priBtnTitle={"Yes"}
+                  priBtnEvnt={() => null}
+                />
               </div>
             </div>
           </div>

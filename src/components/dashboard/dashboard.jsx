@@ -5,7 +5,7 @@ import DeviceCard from "./deviceCard/deviceCard";
 import DashboardNavbar from "./dashboardNavbar";
 import HistoryCard from "./historyCard";
 import Footer from "../common/footer";
-import { getCurrentUserToken, loginWithJwt } from "../../services/authService";
+import { getCurrentUserToken } from "../../services/authService";
 import { getUser } from "./../../services/userService";
 import { resendLink } from "../../services/verifyService";
 import {
@@ -27,8 +27,8 @@ class Dashboard extends Component {
     const token = getCurrentUserToken();
 
     try {
-      const { data: user, headers } = await getUser(token._id);
-      loginWithJwt(headers["x-auth-token"]);
+      const { data: user } = await getUser(token._id);
+
       this.setState({
         devices: user.devices,
         histories: user.history.reverse(),

@@ -1,6 +1,5 @@
 import React from "react";
 import Joi from "joi";
-
 import Navbar from "./common/navbar";
 import banner from "../images/banner.jpg";
 import Footer from "./common/footer";
@@ -28,6 +27,7 @@ class Login extends Form {
 
     try {
       await login(email, password);
+
       window.location = "/dashboard";
     } catch (ex) {
       if (ex.response && ex.response.status >= 400) {

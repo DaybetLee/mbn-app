@@ -3,7 +3,6 @@ import Dashboard from "./components/dashboard/dashboard";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Error404 from "./components/common/error404";
 import Error401 from "./components/common/error401";
-import Test from "./components/test";
 import Validation from "./components/verification/verification";
 import Verify from "./components/verification/verify.jsx";
 import LoginForm from "./components/loginForm";
@@ -23,15 +22,14 @@ class App extends Component {
         <Switch>
           <Route path="/expired" component={Expired} />
           <Route path="/dashboard" component={Dashboard} />
-          <Route path="/test" component={Test} />
-          <Route path="/error" component={Error404} />
           <Route path="/unauthorized" component={Error401} />
           <Route path="/verification" component={Validation} />
           <Route path="/verify/:id" component={Verify} />
           <Route path="/login" component={LoginForm} />
           <Route path="/register" component={RegisterForm} />
-          <Redirect to="/login" />
-          {/* <Redirect to="/error" /> */}
+          <Route path="/error" component={Error404} />
+          <Redirect from="/" exact to="/dashboard" />
+          <Redirect to="/error" />
         </Switch>
       </React.Fragment>
     );

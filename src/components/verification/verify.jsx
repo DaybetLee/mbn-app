@@ -1,26 +1,31 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+
 import Navbar from "../common/navbar";
 import { verify } from "../../services/verifyService";
 import { loginWithJwt } from "../../services/authService";
+import Loading from "./../common/loading";
 
 class Verify extends Component {
   state = {
     verifed: null,
+    rendered: false,
   };
 
   async componentDidMount() {
     try {
       const response = await verify(this.props.match.params.id);
       loginWithJwt(response.headers["x-auth-token"]);
-      this.setState({ verifed: true });
+      this.setState({ verifed: true, rendered: true });
     } catch (ex) {
       this.setState({ verifed: false });
     }
   }
 
   render() {
-    const { verifed } = this.state;
+    const { verifed, rendered } = this.state;
+    if (!rendered) return <Loading />;
+
     return (
       <React.Fragment>
         <Navbar />

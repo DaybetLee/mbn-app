@@ -1,9 +1,10 @@
 import React from "react";
+import Joi from "joi";
+import jpc from "joi-password-complexity";
+
 import Navbar from "./common/navbar";
 import Input from "./common/input";
 import Form from "./common/form";
-import Joi from "joi";
-import jpc from "joi-password-complexity";
 import Footer from "./common/footer";
 import { register } from "../services/userService";
 import { loginWithJwt } from "../services/authService";
@@ -52,7 +53,11 @@ class RegisterForm extends Form {
       .required()
       .label("Email Addresss"),
     password: jpc(this.option).required().label("Password"),
-    confirm_password: jpc(this.option).required().valid(Joi.ref("password")),
+    confirm_password: jpc(this.option)
+      .equal(Joi.ref("password"))
+      .required()
+      .label("Confirm password")
+      .messages({ "any.only": "{{#label}} does not match" }),
   };
 
   render() {

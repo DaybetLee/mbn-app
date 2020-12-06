@@ -1,8 +1,9 @@
 import Joi from "joi";
 import React from "react";
-import Form from "./../common/form";
-import { addDevice } from "../../services/deviceService";
-import Input from "./../common/input";
+
+import Form from "./../../common/form";
+import { addDevice } from "../../../services/deviceService";
+import Input from "./../../common/input";
 
 class DeviceModalForm extends Form {
   state = { data: { name: "", mac: "", psk: "" }, errors: {} };
@@ -21,7 +22,6 @@ class DeviceModalForm extends Form {
 
   doSubmit = async () => {
     try {
-      //   console.log(this.state.data);
       await addDevice(this.state.data);
       window.location = "/dashboard";
     } catch (ex) {
@@ -92,8 +92,6 @@ class DeviceModalForm extends Form {
                   onClick={() => priBtnEvnt()}
                   type="submit"
                   className="btn btn-primary"
-                  // data-toggle="modal"
-                  // data-target={"#" + id}
                 >
                   {priBtnTitle}
                 </button>

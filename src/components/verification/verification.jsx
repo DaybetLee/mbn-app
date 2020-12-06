@@ -1,18 +1,20 @@
 import React, { Component } from "react";
+import { toast } from "react-toastify";
+
 import Navbar from "../common/navbar";
 import { getUser } from "./../../services/userService";
 import { getCurrentUserToken } from "./../../services/authService";
-import { toast } from "react-toastify";
 import { resendLink } from "../../services/verifyService";
+import Loading from "./../common/loading";
 
 class Verification extends Component {
-  state = { user: {} };
+  state = { user: {}, rendered: false };
 
   async componentDidMount() {
     const token = getCurrentUserToken();
     try {
       const { data: user } = await getUser(token._id);
-      this.setState({ user });
+      this.setState({ user, rendered: true });
     } catch (ex) {
       if (ex.response && ex.response.status === 401) {
         window.location = "/unauthorized";
@@ -37,7 +39,9 @@ class Verification extends Component {
   };
 
   render() {
-    const { user } = this.state;
+    const { user, rendered } = this.state;
+
+    if (!rendered) return <Loading />;
 
     return (
       <React.Fragment>

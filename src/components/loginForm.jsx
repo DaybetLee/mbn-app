@@ -1,7 +1,8 @@
 import React from "react";
+import Joi from "joi";
+
 import Navbar from "./common/navbar";
 import banner from "../images/banner.jpg";
-import Joi from "joi";
 import Footer from "./common/footer";
 import Input from "./common/input";
 import Form from "./common/form";

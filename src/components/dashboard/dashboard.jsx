@@ -1,16 +1,18 @@
 import React, { Component } from "react";
-import DeviceCard from "./deviceCard";
+import { toast } from "react-toastify";
+
+import DeviceCard from "./deviceCard/deviceCard";
 import DashboardNavbar from "./dashboardNavbar";
 import HistoryCard from "./historyCard";
 import Footer from "../common/footer";
-import { getCurrentUserToken } from "../../services/authService";
-import { getUser, getHistories } from "./../../services/userService";
+import { getCurrentUserToken, loginWithJwt } from "../../services/authService";
+import { getUser } from "./../../services/userService";
 import { resendLink } from "../../services/verifyService";
-import { toast } from "react-toastify";
 import {
   deleteDevice,
   toggleDeviceNotificatio,
 } from "./../../services/deviceService";
+import Loading from "./../common/loading";
 
 class Dashboard extends Component {
   state = {
@@ -18,21 +20,28 @@ class Dashboard extends Component {
     user: {},
     emailEdit: false,
     histories: [],
+    rendered: false,
   };
 
   async componentDidMount() {
     const token = getCurrentUserToken();
 
     try {
-      const { data: user } = await getUser(token._id);
-      const { data: histories } = await getHistories(token._id);
-      this.setState({ devices: user.devices, histories, user });
+      const { data: user, headers } = await getUser(token._id);
+      loginWithJwt(headers["x-auth-token"]);
+      this.setState({
+        devices: user.devices,
+        histories: user.history.reverse(),
+        user,
+        rendered: true,
+      });
     } catch (ex) {
       if (ex.response && ex.response.status === 401) {
         window.location = "/unauthorized";
-      }
-      if (ex.response && ex.response.status === 400) {
+      } else if (ex.response && ex.response.status === 400) {
         window.location = "/expired";
+      } else {
+        window.location = "/login";
       }
     }
   }
@@ -113,11 +122,22 @@ class Dashboard extends Component {
     );
   };
 
+  handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location = "/login";
+  };
+
   render() {
-    const { devices: allDevices, user, emailEdit, histories } = this.state;
+    const {
+      devices: allDevices,
+      user,
+      emailEdit,
+      histories,
+      rendered,
+    } = this.state;
     const count = allDevices.length;
 
-    console.log("dashboard", user);
+    if (!rendered) return <Loading />;
 
     return (
       <React.Fragment>
@@ -126,6 +146,7 @@ class Dashboard extends Component {
           emailEdit={emailEdit}
           onEmailToggle={() => this.handleEmailToggle()}
           onSendLink={() => this.handleSendLink()}
+          onLogout={() => this.handleLogout()}
         />
         <main className="container">
           <div className="card-deck ">

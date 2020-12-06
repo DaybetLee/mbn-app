@@ -1,4 +1,5 @@
 import React from "react";
+
 import Card from "../common/card";
 
 const HistoryCard = ({ histories }) => {
@@ -7,12 +8,12 @@ const HistoryCard = ({ histories }) => {
     return origin === "Device" ? classes + "primary" : classes + "info";
   };
 
-  const historyCardTime = ({ dayApart, hourApart }) => {
-    return dayApart
-      ? dayApart + " days ago"
-      : hourApart
-      ? hourApart + " hours ago"
-      : "A moment ago";
+  const getDate = ({ date }) => {
+    return new Date(date).toDateString();
+  };
+
+  const getTime = ({ date }) => {
+    return new Date(date).toLocaleTimeString();
   };
 
   return (
@@ -29,9 +30,9 @@ const HistoryCard = ({ histories }) => {
             <div className="p-1 ">{history.message} </div>
           </div>
           <div className="d-flex align-items-center align-content-around flex-wrap flex-row-reverse">
-            <div className="p-1 ">{historyCardTime(history)}</div>
+            <div className="p-1 ">{getTime(history)}</div>
             <div className="p-1 ">
-              <em>{history.date}</em>,
+              <em>{getDate(history)}</em>,
             </div>
           </div>
         </div>

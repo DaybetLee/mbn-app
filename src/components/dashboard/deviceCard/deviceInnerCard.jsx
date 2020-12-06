@@ -1,5 +1,6 @@
 import React from "react";
-import Modal from "../common/modal";
+
+import Modal from "../../common/modal";
 
 const DeviceInnerCard = ({ device, onChange, modalID, onDelete }) => {
   return (

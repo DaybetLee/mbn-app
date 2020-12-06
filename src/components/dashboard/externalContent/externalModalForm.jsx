@@ -1,11 +1,13 @@
 import React from "react";
-import Form from "../../common/form";
 import Joi from "joi";
 import jpc from "joi-password-complexity";
+
+import Form from "../../common/form";
 import Input from "../../common/input";
 import { getCurrentUserToken } from "../../../services/authService";
 import { getUser } from "../../../services/userService";
 import { update } from "../../../services/userService";
+import Modal from "./../../common/modal";
 
 class ExternalModalForm extends Form {
   state = {
@@ -17,6 +19,7 @@ class ExternalModalForm extends Form {
       confirm_password: "",
     },
     errors: {},
+    redenred: false,
   };
 
   option = {
@@ -37,7 +40,11 @@ class ExternalModalForm extends Form {
       .required()
       .label("Email Addresss"),
     password: jpc(this.option).required().label("Password"),
-    confirm_password: jpc(this.option).required().valid(Joi.ref("password")),
+    confirm_password: jpc(this.option)
+      .equal(Joi.ref("password"))
+      .required()
+      .label("Confirm password")
+      .messages({ "any.only": "{{#label}} does not match" }),
   };
 
   async componentDidMount() {
@@ -82,6 +89,8 @@ class ExternalModalForm extends Form {
 
     const { data, errors } = this.state;
 
+    const modalID = "deleteAccountModal";
+
     return (
       <div
         className="modal fade"
@@ -101,8 +110,6 @@ class ExternalModalForm extends Form {
                 </h5>
               </div>
               <div className="modal-body">
-                {/*  */}
-
                 <div className="form-row">
                   <Input
                     name="firstName"
@@ -150,17 +157,18 @@ class ExternalModalForm extends Form {
               <div className="modal-footer">
                 <button
                   type="button"
-                  className="btn btn-secondary"
-                  data-dismiss="modal"
+                  className="btn btn-danger mr-auto"
+                  data-toggle="modal"
+                  data-target={"#" + modalID}
+                  onClick={() => priBtnEvnt()}
                 >
-                  {secBtnTitle}
+                  Delete Account
                 </button>
+                <button type="button">{secBtnTitle}</button>
                 <button
                   onClick={() => priBtnEvnt()}
                   type="submit"
                   className="btn btn-primary"
-                  // data-toggle="modal"
-                  // data-target={"#" + id}
                 >
                   {priBtnTitle}
                 </button>

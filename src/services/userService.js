@@ -39,7 +39,3 @@ export function update(
     rep_pass: confirm_password,
   });
 }
-
-export function getHistories(id) {
-  return http.get(userURL(id) + "/history");
-}

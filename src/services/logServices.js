@@ -1,5 +1,3 @@
-// const init = () => {};
-
 const log = (error) => {
   console.error(error);
 };

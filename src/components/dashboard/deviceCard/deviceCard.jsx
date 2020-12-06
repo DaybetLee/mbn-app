@@ -1,12 +1,11 @@
 import React from "react";
-import Card from "../common/card";
+
+import Card from "../../common/card";
 import DeviceInnerCard from "./deviceInnerCard";
 import DeviceModalForm from "./deviceModalForm";
 
 const DeviceCard = ({ count, allDevices, onChange, onDelete, user }) => {
   const modalID = "addModal";
-
-  console.log("deviceCard", user);
 
   const head = (
     <React.Fragment>

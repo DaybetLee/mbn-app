@@ -53,11 +53,7 @@ class RegisterForm extends Form {
       .required()
       .label("Email Addresss"),
     password: jpc(this.option).required().label("Password"),
-    confirm_password: Joi.any()
-      .equal(Joi.ref("password"))
-      .required()
-      .label("Confirm password")
-      .messages({ "any.only": "{{#label}} does not match" }),
+    confirm_password: jpc(this.option).required().label("Confirm password"),
   };
 
   render() {

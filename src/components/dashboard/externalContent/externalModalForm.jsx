@@ -7,7 +7,6 @@ import Input from "../../common/input";
 import { getCurrentUserToken } from "../../../services/authService";
 import { getUser } from "../../../services/userService";
 import { update } from "../../../services/userService";
-import Modal from "./../../common/modal";
 
 class ExternalModalForm extends Form {
   state = {
@@ -40,11 +39,7 @@ class ExternalModalForm extends Form {
       .required()
       .label("Email Addresss"),
     password: jpc(this.option).required().label("Password"),
-    confirm_password: jpc(this.option)
-      .equal(Joi.ref("password"))
-      .required()
-      .label("Confirm password")
-      .messages({ "any.only": "{{#label}} does not match" }),
+    confirm_password: jpc(this.option).required().label("Confirm password"),
   };
 
   async componentDidMount() {
@@ -88,8 +83,6 @@ class ExternalModalForm extends Form {
     const { header, priBtnTitle, secBtnTitle, priBtnEvnt, id } = this.props;
 
     const { data, errors } = this.state;
-
-    const modalID = "deleteAccountModal";
 
     return (
       <div
@@ -156,11 +149,9 @@ class ExternalModalForm extends Form {
               </div>
               <div className="modal-footer">
                 <button
-                  type="button"
+                  onClick={() => (window.location = "/deleteAccount")}
                   className="btn btn-danger mr-auto"
-                  data-toggle="modal"
-                  data-target={"#" + modalID}
-                  onClick={() => priBtnEvnt()}
+                  data-dismiss="modal"
                 >
                   Delete Account
                 </button>
@@ -178,27 +169,6 @@ class ExternalModalForm extends Form {
                 >
                   {priBtnTitle}
                 </button>
-                <Modal
-                  header={
-                    <React.Fragment>
-                      <i className="fa fa-exclamation-triangle" />
-                      {" Warning"}
-                    </React.Fragment>
-                  }
-                  id={modalID}
-                  body={
-                    <div>
-                      <p>
-                        You are about to delete a device.
-                        <br />
-                        Are you sure you want to continue?
-                      </p>
-                    </div>
-                  }
-                  secBtnTitle={"No"}
-                  priBtnTitle={"Yes"}
-                  priBtnEvnt={() => null}
-                />
               </div>
             </div>
           </div>

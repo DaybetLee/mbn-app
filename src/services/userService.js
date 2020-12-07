@@ -39,3 +39,11 @@ export function update(
     rep_pass: confirm_password,
   });
 }
+
+export function deleteUser(id, password) {
+  return http.delete(userURL(id), {
+    data: {
+      password: password,
+    },
+  });
+}

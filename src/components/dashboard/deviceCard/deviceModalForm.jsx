@@ -64,6 +64,7 @@ class DeviceModalForm extends Form {
                   value={data.name}
                   error={errors.name}
                   onChange={(e) => this.handleChange(e)}
+                  placeholder="MailBoxSensor e.g."
                 />
                 <Input
                   name="mac"
@@ -71,6 +72,7 @@ class DeviceModalForm extends Form {
                   value={data.mac}
                   error={errors.mac}
                   onChange={(e) => this.handleChange(e)}
+                  placeholder="xx:xx:xx:xx:xx:xx e.g."
                 />
                 <Input
                   name="psk"
@@ -78,6 +80,7 @@ class DeviceModalForm extends Form {
                   value={data.psk}
                   error={errors.psk}
                   onChange={(e) => this.handleChange(e)}
+                  placeholder="12345678 e.g."
                 />
               </div>
               <div className="modal-footer">

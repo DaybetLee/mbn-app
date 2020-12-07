@@ -11,6 +11,7 @@ import React, { Component } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Expired from "./components/common/expired";
+import DeleteAccount from "./components/deleteAccount";
 
 class App extends Component {
   state = {};
@@ -21,6 +22,7 @@ class App extends Component {
         <ToastContainer hideProgressBar />
         <Switch>
           <Route path="/expired" component={Expired} />
+          <Route path="/deleteAccount" component={DeleteAccount} />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/unauthorized" component={Error401} />
           <Route path="/verification" component={Validation} />

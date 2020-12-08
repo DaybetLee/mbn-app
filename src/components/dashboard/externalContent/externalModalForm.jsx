@@ -64,16 +64,14 @@ class ExternalModalForm extends Form {
 
   doSubmit = async () => {
     const token = getCurrentUserToken();
-
     try {
       await update(token._id, this.state.data);
-
       window.location = "/dashboard";
     } catch (ex) {
       console.log("ex", ex.response.status);
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };
-        errors.email = ex.response.data;
+        errors.error = ex.response.data;
         this.setState({ errors });
       }
     }
@@ -103,6 +101,11 @@ class ExternalModalForm extends Form {
                 </h5>
               </div>
               <div className="modal-body">
+                {errors.error ? (
+                  <small className="form-text text-danger mt-0">
+                    {errors.error}
+                  </small>
+                ) : null}
                 <div className="form-row">
                   <Input
                     name="firstName"
@@ -147,6 +150,7 @@ class ExternalModalForm extends Form {
                   onChange={(e) => this.handleChange(e)}
                 />
               </div>
+
               <div className="modal-footer">
                 <button
                   onClick={() => (window.location = "/deleteAccount")}

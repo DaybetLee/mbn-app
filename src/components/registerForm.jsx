@@ -39,7 +39,7 @@ class RegisterForm extends Form {
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };
-        errors.email = ex.response.data;
+        errors.error = ex.response.data;
         this.setState({ errors });
       }
     }
@@ -65,6 +65,9 @@ class RegisterForm extends Form {
         <div className="d-flex p-5 justify-content-center">
           <form onSubmit={(e) => this.handleSubmit(e)}>
             <h1 className="pb-2">Registration</h1>
+            {errors.error ? (
+              <small className="form-text text-danger">{errors.error}</small>
+            ) : null}
             <div className="form-row">
               <Input
                 name="firstName"

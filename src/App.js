@@ -30,7 +30,7 @@ class App extends Component {
           <Route path="/login" component={LoginForm} />
           <Route path="/register" component={RegisterForm} />
           <Route path="/error" component={Error404} />
-          <Redirect from="/" exact to="/dashboard" />
+          <Redirect from="/" exact to="/login" />
           <Redirect to="/error" />
         </Switch>
       </React.Fragment>

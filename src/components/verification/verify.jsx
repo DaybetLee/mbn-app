@@ -18,7 +18,7 @@ class Verify extends Component {
       loginWithJwt(response.headers["x-auth-token"]);
       this.setState({ verifed: true, rendered: true });
     } catch (ex) {
-      this.setState({ verifed: false });
+      this.setState({ verifed: false, rendered: true });
     }
   }
 
